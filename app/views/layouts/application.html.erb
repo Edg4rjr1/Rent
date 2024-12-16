@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Rent</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  
+
+  <!-- REMOVA qualquer referência ao javascript_importmap_tag -->
+ <%= javascript_importmap_tags %>
+ <!-- Esta é a linha correta para importar os scripts -->
+</head>
+<body>
+  <% if user_signed_in? %> <!-- Exibe o menu apenas para usuários autenticados -->
+  <% end %>
+
+  <div class="content">
+    <%= yield %> <!-- Aqui será renderizada a view específica -->
+  </div>
+</body>
+</html>

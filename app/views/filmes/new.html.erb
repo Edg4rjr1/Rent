@@ -1,0 +1,55 @@
+<%= form_with(model: @filme, local: true, html: { multipart: true }) do |form| %>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4><%= @filme.new_record? ? 'Adicionar Novo Filme' : 'Editar Filme' %></h4>
+          </div>
+          <div class="card-body">
+            <!-- Campo Título -->
+            <div class="mb-3">
+              <%= form.label :titulo, "Título", class: "form-label" %>
+              <%= form.text_field :titulo, class: "form-control", required: true %>
+            </div>
+
+            <!-- Campo Categoria -->
+            <div class="mb-3">
+              <%= form.label :categoria_id, "Categoria", class: "form-label" %>
+              <%= form.collection_select :categoria_id, Categoria.all, :id, :nome, { prompt: "Selecione a categoria" }, class: "form-control" %>
+            </div>
+
+            <!-- Campo Ano de Lançamento -->
+            <div class="mb-3">
+              <%= form.label :ano_lancamento, "Ano de Lançamento", class: "form-label" %>
+              <%= form.number_field :ano_lancamento, class: "form-control" %>
+            </div>
+
+            <!-- Campo Diretor -->
+            <div class="mb-3">
+              <%= form.label :diretor, "Diretor", class: "form-label" %>
+              <%= form.text_field :diretor, class: "form-control" %>
+            </div>
+
+            <!-- Campo Duração -->
+            <div class="mb-3">
+              <%= form.label :duracao, "Duração (em minutos)", class: "form-label" %>
+              <%= form.number_field :duracao, class: "form-control" %>
+            </div>
+
+            <!-- Campo Upload de Imagem -->
+            <div class="mb-3">
+              <%= form.label :arquivo, "Imagem do Filme", class: "form-label" %>
+              <%= form.file_field :arquivo, class: "form-control" %>
+            </div>
+
+            <!-- Botões -->
+            <div class="mb-3">
+              <%= form.submit @filme.new_record? ? "Criar Filme" : "Salvar Alterações", class: "btn btn-primary w-100" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

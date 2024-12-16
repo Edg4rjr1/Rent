@@ -1,0 +1,43 @@
+<%= form_with(model: @emprestimo, local: true) do |form| %>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4>Registrar Empréstimo</h4>
+          </div>
+          <div class="card-body">
+            <!-- Seleção do Cliente -->
+            <div class="mb-3">
+              <%= form.label :cliente_id, "Cliente", class: "form-label" %>
+              <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, { prompt: "Selecione o Cliente" }, class: "form-control" %>
+            </div>
+
+            <!-- Seleção do Filme -->
+            <div class="mb-3">
+              <%= form.label :filme_id, "Filme", class: "form-label" %>
+              <%= form.collection_select :filme_id, Filme.all, :id, :titulo, { prompt: "Selecione o Filme" }, class: "form-control" %>
+            </div>
+
+            <!-- Data de Empréstimo -->
+            <div class="mb-3">
+              <%= form.label :data_emprestimo, "Data de Empréstimo", class: "form-label" %>
+              <%= form.date_field :data_emprestimo, class: "form-control", required: true %>
+            </div>
+
+            <!-- Data de Devolução -->
+            <div class="mb-3">
+              <%= form.label :data_devolucao, "Data de Devolução", class: "form-label" %>
+              <%= form.date_field :data_devolucao, class: "form-control", required: true %>
+            </div>
+
+            <!-- Botão de Envio -->
+            <div class="mb-3">
+              <%= form.submit "Registrar Empréstimo", class: "btn btn-success w-100" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

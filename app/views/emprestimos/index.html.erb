@@ -1,0 +1,68 @@
+<h1 class="text-center mb-4">Empréstimos</h1>
+
+<!-- Formulário de Busca -->
+<div class="row mb-4">
+  <div class="col-12">
+    <%= form_with(url: emprestimos_path, method: :get, local: true) do %>
+      <div class="input-group">
+        <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Buscar por cliente ou filme..." %>
+        <div class="input-group-append">
+          <%= submit_tag "Buscar", class: 'btn btn-outline-secondary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Tabela de Empréstimos -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Filme</th>
+      <th>Data do Empréstimo</th>
+      <th>Data de Devolução</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @emprestimos.any? %>
+      <% @emprestimos.each do |emprestimo| %>
+        <tr>
+          <td><%= emprestimo.cliente.nome %></td> <!-- Exibindo o nome do cliente -->
+          <td><%= emprestimo.filme.titulo %></td> <!-- Exibindo o título do filme -->
+          <td><%= emprestimo.data_emprestimo.strftime('%d/%m/%Y') if emprestimo.data_emprestimo %></td> <!-- Exibindo a data do empréstimo -->
+          <td><%= emprestimo.data_devolucao.strftime('%d/%m/%Y') if emprestimo.data_devolucao %></td> <!-- Exibindo a data de devolução -->
+          <td>
+            <%= link_to 'Visualizar', emprestimo_path(emprestimo), class: 'btn btn-info btn-sm' %>
+            <%= link_to 'Editar', edit_emprestimo_path(emprestimo), class: 'btn btn-warning btn-sm' %>
+            <%= link_to 'Excluir', destroy_emprestimo_path(id: emprestimo.id), method: :get, data: { confirm: 'Tem certeza que deseja excluir este empréstimo?' }, class: 'btn btn-danger btn-sm' %>
+
+           </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5" class="text-center">Nenhum empréstimo encontrado.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- Linhas para a página -->
+<div class="row mb-4">
+  <!-- Botão para Voltar ao Dashboard (esquerda) -->
+  <div class="col-md-4">
+    <%= link_to 'Voltar', authenticated_root_path, class: 'btn btn-primary' %>
+  </div>
+
+  <!-- Paginação Centralizada -->
+  <div class="col-md-4 text-center">
+    <%= paginate @emprestimos %>
+  </div>
+
+  <!-- Botão para Registrar Novo Empréstimo (direita) -->
+  <div class="col-md-4 text-right">
+    <%= link_to 'Registrar Empréstimo', new_emprestimo_path, class: 'btn btn-primary' %>
+  </div>
+</div>

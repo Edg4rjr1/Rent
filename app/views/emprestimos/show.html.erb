@@ -1,0 +1,20 @@
+<h1>Detalhes do Empréstimo</h1>
+
+    <div class="mb-4">
+      <strong>Cliente:</strong> <%= @emprestimo.cliente.nome %>
+    </div>
+    <div class="mb-4">
+      <strong>Filme:</strong> <%= @emprestimo.filme.titulo %>
+    </div>
+    <div class="mb-4">
+      <strong>Data do Empréstimo:</strong> <%= @emprestimo.data_emprestimo.strftime('%d/%m/%Y') %>
+    </div>
+    <div class="mb-4">
+      <strong>Data de Devolução:</strong> <%= @emprestimo.data_devolucao.strftime('%d/%m/%Y') %>
+    </div>
+    
+    <div class="mt-4">
+      <%= link_to 'Voltar', emprestimos_path, class: 'btn btn-primary' %>
+      <%= link_to 'Editar', edit_emprestimo_path(@emprestimo), class: 'btn btn-warning' %>
+      <%= link_to 'Excluir', emprestimo_path(@emprestimo), method: :delete, data: { confirm: 'Tem certeza que deseja excluir este empréstimo?' }, class: 'btn btn-danger' %>
+    </div>

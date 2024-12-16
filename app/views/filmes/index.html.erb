@@ -1,0 +1,87 @@
+<div class="container mt-4">
+  <!-- Links de PDF e CSV -->
+  <div class="row mb-4 text-center">
+    <div class="col-12">
+<%= link_to 'Gerar PDF', gerar_pdf_filmes_path, target: "_blank", class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <!-- Formulário de Busca -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <%= form_with(url: filmes_path, method: :get, local: true) do %>
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Buscar por título ou categoria..." %>
+          <div class="input-group-append">
+            <%= submit_tag "Buscar", class: 'btn btn-outline-secondary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Tabela de Filmes -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Categoria</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @filmes.each do |filme| %>
+        <tr>
+          <td><%= filme.titulo %></td>
+          <td><%= filme.categoria.nome %></td> <!-- Exibe o nome da categoria -->
+          <td>
+            <%= link_to 'Visualizar', filme_path(filme), class: 'btn btn-info btn-sm' %> |
+            <%= link_to 'Editar', edit_filme_path(filme), class: 'btn btn-warning btn-sm' %> |
+            <%= link_to 'Excluir', destroy_filme_path(id: filme.id), method: :get, data: { confirm: 'Tem certeza que deseja excluir este filme?' }, class: 'btn btn-danger btn-sm' %>
+
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Links de Ação Centralizados no Rodapé -->
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <!-- Botão de Voltar ao Dashboard -->
+      <%= link_to 'Voltar', authenticated_root_path, class: 'btn btn-primary mb-3 mx-2' %>
+
+      <!-- Paginação -->
+      <div class="d-inline-block">
+        <% if @filmes.total_pages > 1 %>
+          <ul class="pagination justify-content-center">
+            <% if @filmes.first_page? %>
+              <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            <% else %>
+              <li class="page-item">
+                <%= link_to '«', filmes_path(page: @filmes.prev_page), class: 'page-link' %>
+              </li>
+            <% end %>
+
+            <% (1..@filmes.total_pages).each do |page| %>
+              <li class="page-item <%= 'active' if page == @filmes.current_page %>">
+                <%= link_to page, filmes_path(page: page), class: 'page-link' %>
+              </li>
+            <% end %>
+
+            <% if @filmes.last_page? %>
+              <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            <% else %>
+              <li class="page-item">
+                <%= link_to '»', filmes_path(page: @filmes.next_page), class: 'page-link' %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <!-- Botão de Adicionar Filme -->
+      <%= link_to 'Adicionar Filme', new_filme_path, class: 'btn btn-primary mb-3 mx-2' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<% if @clientes.respond_to?(:total_pages) && @clientes.total_pages > 1 %>
+  <ul class="pagination">
+    <% if @clientes.first_page? %>
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '«', clientes_path(page: @clientes.prev_page), class: 'page-link' %></li>
+    <% end %>
+
+    <% (1..@clientes.total_pages).each do |page| %>
+      <li class="page-item <%= 'active' if page == @clientes.current_page %>">
+        <%= link_to page, clientes_path(page: page), class: 'page-link' %>
+      </li>
+    <% end %>
+
+    <% if @clientes.last_page? %>
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '»', clientes_path(page: @clientes.next_page), class: 'page-link' %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @filmes.respond_to?(:total_pages) && @filmes.total_pages > 1 %>
+  <ul class="pagination">
+    <% if @filmes.first_page? %>
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '«', filmes_path(page: @filmes.previous_page), class: 'page-link' %></li>
+    <% end %>
+
+    <% (1..@filmes.total_pages).each do |page| %>
+      <li class="page-item <%= 'active' if page == @filmes.current_page %>">
+        <%= link_to page, filmes_path(page: page), class: 'page-link' %>
+      </li>
+    <% end %>
+
+    <% if @filmes.last_page? %>
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '»', filmes_path(page: @filmes.next_page), class: 'page-link' %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @emprestimos.respond_to?(:total_pages) && @emprestimos.total_pages > 1 %>
+  <ul class="pagination">
+    <% if @emprestimos.first_page? %>
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '«', emprestimos_path(page: @emprestimos.prev_page), class: 'page-link' %></li>
+    <% end %>
+
+    <% (1..@emprestimos.total_pages).each do |page| %>
+      <li class="page-item <%= 'active' if page == @emprestimos.current_page %>">
+        <%= link_to page, emprestimos_path(page: page), class: 'page-link' %>
+      </li>
+    <% end %>
+
+    <% if @emprestimos.last_page? %>
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    <% else %>
+      <li class="page-item"><%= link_to '»', emprestimos_path(page: @emprestimos.next_page), class: 'page-link' %></li>
+    <% end %>
+  </ul>
+<% end %>

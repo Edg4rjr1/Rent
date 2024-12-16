@@ -1,0 +1,24 @@
+<h1>Lista de Categorias</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categorias.each do |categoria| %>
+      <tr>
+        <td><%= categoria.nome %></td>
+        <td>
+          <%= link_to 'Ver', categoria_path(categoria), class: 'btn btn-primary' %> |
+          <%= link_to 'Editar', edit_categoria_path(categoria), class: 'btn btn-warning' %> |
+          <%= link_to 'Excluir', categoria_path(categoria), method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nova Categoria', new_categoria_path, class: 'btn btn-success' %>

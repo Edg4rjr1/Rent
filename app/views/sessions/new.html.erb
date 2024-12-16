@@ -1,0 +1,8 @@
+<% if user_signed_in? %>
+  <h1>Bem-vindo, <%= current_user.email %>!</h1>
+  <%= link_to 'Ir para o Dashboard', authenticated_root_path %>
+<% else %>
+  <h1>Bem-vindo à nossa plataforma!</h1>
+  <%= link_to 'Login', new_user_session_path %> <!-- Link para a página de login do Devise -->
+  <%= link_to 'Registrar-se', new_user_registration_path %> <!-- Link para a página de registro do Devise -->
+<% end %>

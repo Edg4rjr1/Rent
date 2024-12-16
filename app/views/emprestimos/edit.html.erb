@@ -1,0 +1,47 @@
+<h1>Editar Empréstimo</h1>
+
+<%= form_with(model: @emprestimo, local: true) do |form| %>
+  <!-- Exibição de erros caso existam -->
+  <% if @emprestimo.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@emprestimo.errors.count, "erro") %> proibiu que este empréstimo fosse salvo:</h4>
+      <ul>
+        <% @emprestimo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Campo para selecionar o Cliente -->
+  <div class="form-group">
+    <%= form.label :cliente_id, "Cliente" %>
+    <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, { prompt: "Selecione o Cliente" }, class: 'form-control' %>
+  </div>
+
+  <!-- Campo para selecionar o Filme -->
+  <div class="form-group">
+    <%= form.label :filme_id, "Filme" %>
+    <%= form.collection_select :filme_id, Filme.all, :id, :titulo, { prompt: "Selecione o Filme" }, class: 'form-control' %>
+  </div>
+
+  <!-- Campo para a data do empréstimo -->
+  <div class="form-group">
+    <%= form.label :data_emprestimo, "Data do Empréstimo" %>
+    <%= form.date_field :data_emprestimo, class: 'form-control' %>
+  </div>
+
+  <!-- Campo para a data de devolução -->
+  <div class="form-group">
+    <%= form.label :data_devolucao, "Data de Devolução" %>
+    <%= form.date_field :data_devolucao, class: 'form-control' %>
+  </div>
+
+  <!-- Botão de envio -->
+  <div class="form-group">
+    <%= form.submit 'Atualizar Empréstimo', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<!-- Botão para cancelar e voltar à lista de empréstimos -->
+<%= link_to 'Cancelar', emprestimos_path, class: 'btn btn-secondary' %>

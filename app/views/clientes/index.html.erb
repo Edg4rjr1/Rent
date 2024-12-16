@@ -1,0 +1,142 @@
+<h1 class="text-center mb-4">Clientes</h1>
+
+<div class="container">
+  <!-- Botão para Gerar PDF -->
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+    <%= link_to 'Gerar PDF', gerar_pdf_clientes_path, target: "_blank", class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <!-- Formulário de Busca -->
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-2">
+      <%= form_with(url: clientes_path, method: :get, local: true) do %>
+        <div class="input-group">
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Buscar por nome, sobrenome, email..." %>
+          <div class="input-group-append">
+            <%= submit_tag "Buscar", class: 'btn btn-outline-secondary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Tabela de Clientes -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @clientes.each do |cliente| %>
+          <tr>
+            <td><%= cliente.nome %></td>
+            <td><%= cliente.sobrenome %></td>
+            <td><%= cliente.email %></td>
+            <td><%= cliente.telefone %></td>
+            <td>
+              <%= link_to 'Editar', edit_cliente_path(cliente), class: 'btn btn-warning btn-sm' %>
+              <%= link_to 'Excluir', destroy_path(id: cliente.id), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Linha para Voltar ao Dashboard, Criar Novo Cliente e Paginação -->
+  <div class="row mb-4">
+    <!-- Voltar ao Dashboard (à esquerda) -->
+    <div class="col-md-4 text-left">
+      <%= link_to 'Voltar', authenticated_root_path, class: 'btn btn-primary' %>
+    </div>
+
+    <!-- Paginação (centralizada) -->
+    <div class="col-md-4 text-center">
+      <%= paginate @clientes %>
+    </div>
+
+    <!-- Novo Cliente (à direita) -->
+    <div class="col-md-4 text-right">
+      <%= link_to 'Novo Cliente', new_cliente_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background-color: #f4f7fb; /* Cor de fundo suave */
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com transparência */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  .table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .table th, .table td {
+    padding: 12px;
+    text-align: center;
+  }
+
+  .thead-dark th {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+
+  .btn {
+    margin: 5px 0;
+    border-radius: 5px;
+  }
+
+  .btn-primary, .btn-warning, .btn-danger, .btn-secondary {
+    padding: 8px 16px;
+  }
+
+  .btn-outline-secondary {
+    padding: 8px 16px;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .pagination .page-item .page-link {
+    border-radius: 5px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .table-responsive {
+    margin-top: 20px;
+  }
+
+  .text-left {
+    text-align: left;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+</style>

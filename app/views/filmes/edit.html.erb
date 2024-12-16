@@ -1,0 +1,59 @@
+<h1 class="text-center mb-4">Editar Filme</h1>
+
+<div class="container">
+  <%= form_with(model: @filme, local: true, class: "needs-validation", novalidate: true) do |form| %>
+    <% if @filme.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@filme.errors.count, "erro") %> proibiu este filme de ser salvo:</h4>
+        <ul>
+          <% @filme.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :titulo, class: "form-label" %>
+      <%= form.text_field :titulo, class: "form-control", placeholder: "Digite o título do filme" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :categoria_id, "Categoria", class: "form-label" %>
+      <%= form.collection_select :categoria_id, Categoria.all, :id, :nome, 
+          { prompt: "Selecione a categoria" }, class: "form-select" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :ano_lancamento, "Ano de Lançamento", class: "form-label" %>
+      <%= form.number_field :ano_lancamento, class: "form-control", placeholder: "Ex.: 2024" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :duracao, "Duração (minutos)", class: "form-label" %>
+      <%= form.number_field :duracao, class: "form-control", placeholder: "Ex.: 120" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :diretor, "Diretor", class: "form-label" %>
+      <%= form.text_field :diretor, class: "form-control", placeholder: "Nome do diretor" %>
+    </div>
+
+    <!-- Campo de upload de imagem -->
+    <div class="form-group">
+      <%= form.label :arquivo, "Imagem do Filme", class: "form-label" %>
+      <%= form.file_field :arquivo, class: "form-control" %>
+      <% if @filme.arquivo.attached? %>
+        <div class="mt-2">
+          <strong>Imagem Atual:</strong>
+          <%= image_tag @filme.arquivo, size: "150x150", class: "img-thumbnail" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group text-center mt-4">
+      <%= form.submit "Salvar", class: "btn btn-primary me-2" %>
+      <%= link_to "Cancelar", filmes_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>
