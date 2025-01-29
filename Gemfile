@@ -30,7 +30,7 @@ gem 'sassc-rails' # Caso precise usar Sass com o Bootstrap
 
 # Outros
 gem 'jbuilder', '~> 2.7'  # Para criar APIs (opcional)
-gem 'puma', '~> 6.0'
+gem 'puma', '~> 6.6'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
